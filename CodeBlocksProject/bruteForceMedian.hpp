@@ -2,7 +2,7 @@
 #define BRUTEFORCEMEDIAN_HPP_INCLUDED
 
 int bruteForceMedian(int inputArray[], int arrayLength){
-    int k = (arrayLength + 1) / 2; // +1 for Ceiling Value, Integer Division
+    int k = (arrayLength + 1) / 2; // +1 for Ceiling Value, Using Integer Division
     for(int i = 0; i < arrayLength; i++){
         int numSmaller = 0;
         int numEqual = 0;
