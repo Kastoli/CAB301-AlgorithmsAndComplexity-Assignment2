@@ -6,10 +6,12 @@ using namespace std;
 int bruteForceMedian(int inputArray[], int arrayLength);
 
 int bruteForceMedianTesting();
+int bruteForceMedianBasicOperationsTesting();
 
 int main()
 {
-    bruteForceMedianTesting();
+    //bruteForceMedianTesting();
+    bruteForceMedianBasicOperationsTesting();
 
     return 0;
 }
@@ -35,6 +37,21 @@ int bruteForceMedianTesting(){
     int myArrayThree[9] = {2,7,11,15,26,3,2,9,15};
     output = bruteForceMedian(myArrayThree, 9);
     cout << output << endl;
+
+    return 0;
+}
+
+int bruteForceMedianBasicOperationsTesting(){
+    int numBasicOperations[1];
+    int output;
+    cout << "Expected Output: ";
+    cout << "8" << endl;
+    cout << "Actual Output: ";
+    int myArray[9] = {4,1,10,9,7,12,8,2,15};
+    output = bruteForceMedianBasicOperations(myArray, 9, numBasicOperations);
+    cout << output << endl;
+    cout << "No of Basic Operations: ";
+    cout << numBasicOperations[0] << endl;
 
     return 0;
 }
