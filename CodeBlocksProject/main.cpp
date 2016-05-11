@@ -13,8 +13,13 @@ int bruteForceMedianTestingExecutionTime();
 
 int main()
 {
-    //bruteForceMedianTesting();
-    //bruteForceMedianBasicOperationsTesting();
+    cout << "Brute Force Median - Test 1 - Does it work?" << endl;
+    bruteForceMedianTesting();
+    cout << "" << endl;
+    cout << "Brute Force Median - Test 2 - Number of basic operations" << endl;
+    bruteForceMedianBasicOperationsTesting();
+    cout << "" << endl;
+    cout << "Brute Force Median - Test 3 - Number of clock ticks" << endl;
     bruteForceMedianTestingExecutionTime();
 
     return 0;
@@ -27,21 +32,7 @@ int bruteForceMedianTesting(){
     int myArray[9] = {4,1,10,9,7,12,8,2,15};
     int output = bruteForceMedian(myArray, 9);
     cout << output << endl;
-/*
-    cout << "Expected Output: ";
-    cout << "5" << endl;
-    cout << "Actual Output: ";
-    int myArrayTwo[9] = {1,2,3,4,5,6,7,8,9};
-    output = bruteForceMedian(myArrayTwo, 9);
-    cout << output << endl;
 
-    cout << "Expected Output: ";
-    cout << "9" << endl;
-    cout << "Actual Output: ";
-    int myArrayThree[9] = {2,7,11,15,26,3,2,9,15};
-    output = bruteForceMedian(myArrayThree, 9);
-    cout << output << endl;
-*/
     return 0;
 }
 
@@ -69,10 +60,12 @@ int bruteForceMedianTestingExecutionTime(){
     for(int i = 0; i < 100000; i++){
         myArray[i] = rand();
     }
-    clockid_t ticks = clock();
-    int output = bruteForceMedian(myArray, 9);
-    ticks = (clock() - ticks);
+    clock_t ticks = clock();
+    int output = bruteForceMedian(myArray, 100000);
+    ticks = clock() - ticks;
     cout << output << endl;
     cout << "No. of Clock Ticks: ";
     cout << ticks << endl;
+
+    return 0;
 }
