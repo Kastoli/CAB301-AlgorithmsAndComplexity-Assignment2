@@ -2,6 +2,7 @@
 #define MEDIAN_HPP_INCLUDED
 
 #include <time.h>
+#include <math.h>
 
 class median {
     public:
@@ -18,9 +19,9 @@ class median {
         int basic_operations;
         double execution_time;
         int median_value;
-        int median_median();
-        int median_select(int l, int m, int h);
-        int median_partition(int l, int h);
+        int private_median();
+        int private_select(int l, int m, int h);
+        int private_partition(int l, int h);
 };
 
 median::median(int input_array[], int input_array_length){
@@ -41,36 +42,35 @@ int median::get_median_value(){
 }
 
 void median::find_median_basic_operations(){
-    median_value = median_median();
+    median_value = private_median();
 }
 
 void median::find_median_execution_time(){
     // Not yet implemented
 }
 
-int median::median_median(){
+int median::private_median(){
     if(array_length == 1){
         return referenced_array[0];
     } else {
-        float floor((float)array_length / 2);
-        median_select(0, floor, array_length - 1);
+        private_select(0, floor((float)array_length / 2), array_length - 1);
     }
 }
 
-int median::median_select(int l, int m, int h){
-    int pos = median_partition(l, h);
+int median::private_select(int l, int m, int h){
+    int pos = private_partition(l, h);
     if(pos == m){
         return referenced_array[pos];
     }
     if(pos > m){
-        return median_select(l, m, pos - 1);
+        return private_select(l, m, pos - 1);
     }
     if(pos < m){
-        return median_select(pos + 1, m, h);
+        return private_select(pos + 1, m, h);
     }
 }
 
-int median::median_partition(int l, int h){
+int median::private_partition(int l, int h){
     int pivotval = referenced_array[l];
     int pivotloc = l;
     for(int j = 0; j < l + 1; j++){

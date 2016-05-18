@@ -2,6 +2,7 @@
 #define BRUTE_FORCE_MEDIAN_HPP_INCLUDED
 
 #include <time.h>
+#include <math.h>
 
 class brute_force_median {
     public:
@@ -39,8 +40,7 @@ int brute_force_median::get_median_value(){
 
 void brute_force_median::find_median_basic_operations(){
     int num_basic_operations = 0;
-    float ceil((float)array_length / 2);
-    int k = ceil;
+    int k = ceil((float)array_length / 2);
     for(int i = 0; i < array_length; i++){
         int num_smaller = 0;
         int num_equal = 0;
