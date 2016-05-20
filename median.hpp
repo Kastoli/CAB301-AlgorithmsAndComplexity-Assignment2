@@ -3,6 +3,7 @@
 
 #include <time.h>
 #include <math.h>
+#include <algorithm>
 
 class median {
     public:
@@ -15,6 +16,7 @@ class median {
 
     private:
         int * referenced_array;
+        int * copied_array;
         int array_length;
         int basic_operations;
         double execution_time;
@@ -26,6 +28,8 @@ class median {
 
 median::median(int input_array[], int input_array_length){
     referenced_array = input_array;
+    copied_array = new int[input_array_length];
+    std::copy_n(input_array, input_array_length, copied_array);
     array_length = input_array_length;
 }
 
@@ -71,19 +75,19 @@ int median::private_select(int l, int m, int h){
 }
 
 int median::private_partition(int l, int h){
-    int pivotval = referenced_array[l];
+    int pivotval = copied_array[l];
     int pivotloc = l;
     for(int j = 0; j < l + 1; j++){
-        if(referenced_array[j] < pivotval){
+        if(copied_array[j] < pivotval){
             pivotloc++;
-            int temp = referenced_array[pivotloc];
-            referenced_array[pivotloc] = referenced_array[j];
-            referenced_array[j] = temp;
+            int temp = copied_array[pivotloc];
+            copied_array[pivotloc] = copied_array[j];
+            copied_array[j] = temp;
         }
     }
-    int temp = referenced_array[l];
-    referenced_array[l] = referenced_array[pivotloc];
-    referenced_array[pivotloc] = temp;
+    int temp = copied_array[l];
+    copied_array[l] = copied_array[pivotloc];
+    copied_array[pivotloc] = temp;
     return pivotloc;
 }
 
