@@ -32,7 +32,7 @@ int Partition(int A[], int l, int h){
     int pivotval = A[l];
     int pivotloc = l;
     for(int j = l+1; j <= h; j++){
-        if(A[j] < pivotval){
+        if(A[j] < pivotval){ // This is basic operation?
             pivotloc = pivotloc+1;
             int temp = A[pivotloc];
             A[pivotloc] = A[j];

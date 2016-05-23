@@ -9,7 +9,7 @@ int BruteForceMedian(int A[], int n){
         int numsmaller = 0;
         int numequal = 0;
         for(int j = 0; j <= n-1; j++){
-            if(A[j] < A[i]){
+            if(A[j] < A[i]){ // This is basic operation?
                 numsmaller = numsmaller+1;
             } else {
                 if(A[j] == A[i]){
