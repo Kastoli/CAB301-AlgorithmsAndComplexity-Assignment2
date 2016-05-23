@@ -20,16 +20,19 @@ int main()
     ofstream myfile;
     myfile.open ("output.csv");
     srand(time(NULL));
-    for(int i = 0; i < 10; i++){
-        int test_array[10000];
-        for(int j = 0; j < 10000; j++){
-            test_array[j] = rand()%1000;
+    for(int k = 10; k <= 100000; k = k+10){
+        for(int i = 0; i < 1; i++){
+            int test_array[k];
+            for(int j = 0; j < k; j++){
+                test_array[j] = rand()%1000;
+            }
+            clock_t ticks = clock();
+            int median_value = BruteForceMedian_BasicOperations(test_array, k);
+            ticks = clock() - ticks;
+            myfile << k << "," << numoperations << "," << ticks << "\n";
         }
-        clock_t ticks = clock();
-        int median_value = BruteForceMedian_BasicOperations(test_array, 10000);
-        ticks = clock() - ticks;
-        myfile << "10000" << "," << numoperations << "," << ticks << "\n";
     }
+
     myfile.close();
 
     /*
