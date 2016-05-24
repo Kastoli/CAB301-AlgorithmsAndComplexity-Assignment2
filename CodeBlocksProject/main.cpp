@@ -19,7 +19,7 @@ int main()
 {
     int num_of_arrays = 100;
     int size_of_arrays = 100;
-    int number_of_steps = 100;
+    int number_of_steps = 1000;
     int size_of_steps = 100;
 
     ofstream my_file;
@@ -27,7 +27,8 @@ int main()
 
     srand(time(NULL));
 
-    for(int k = 0; k < number_of_steps; k++){
+    for(int k = 0; k < number_of_steps; k++){;
+        int average_aray[3][num_of_arrays];
         for(int i = 0; i < num_of_arrays; i++){
             int test_array[size_of_arrays];
             for(int j = 0; j < size_of_arrays; j++){
@@ -36,7 +37,26 @@ int main()
             clock_t ticks = clock();
             int median_value = BruteForceMedian_BasicOperations(test_array, size_of_arrays);
             ticks = clock() - ticks;
-            my_file << size_of_arrays << "," << num_operations << "," << ticks << "\n";
+            // my_file << size_of_arrays << "," << num_operations << "," << ticks << "\n";
+            // add to array
+            average_aray[0][i] = size_of_arrays;
+            average_aray[1][i] = num_operations;
+            average_aray[2][i] = ticks;
+        }
+        // average array
+        // output average to file
+        for(int i = 0; i < 3; i++){
+            long long total = 0;
+            for(int j = 0; j < num_of_arrays; j++){
+                total += average_aray[i][j];
+            }
+            long double average = total / num_of_arrays;
+            my_file << average;
+            if(i == 2){
+                my_file << "\n";
+            } else {
+                my_file << ",";
+            }
         }
         size_of_arrays += size_of_steps;
     }
