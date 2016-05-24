@@ -13,72 +13,78 @@ int Median_BasicOperations(int A[], int n);
 int Select_BasicOperations(int A[], int l, int m, int h);
 int Partition_BasicOperations(int A[], int l, int h);
 
-unsigned long numoperations = 0;
+unsigned long num_operations = 0;
 
 int main()
 {
-    ofstream myfile;
-    myfile.open ("output.csv");
+    int num_of_arrays = 100;
+    int size_of_arrays = 100;
+    int number_of_steps = 100;
+    int size_of_steps = 100;
+
+    ofstream my_file;
+    my_file.open ("output.csv");
+
     srand(time(NULL));
-    for(int k = 10; k <= 100000; k = k+10){
-        for(int i = 0; i < 1; i++){
-            int test_array[k];
-            for(int j = 0; j < k; j++){
-                test_array[j] = rand()%1000;
+
+    for(int k = 0; k < number_of_steps; k++){
+        for(int i = 0; i < num_of_arrays; i++){
+            int test_array[size_of_arrays];
+            for(int j = 0; j < size_of_arrays; j++){
+                test_array[j] = rand()&1000;
             }
             clock_t ticks = clock();
-            int median_value = BruteForceMedian_BasicOperations(test_array, k);
+            int median_value = BruteForceMedian_BasicOperations(test_array, size_of_arrays);
             ticks = clock() - ticks;
-            myfile << k << "," << numoperations << "," << ticks << "\n";
+            my_file << size_of_arrays << "," << num_operations << "," << ticks << "\n";
         }
+        size_of_arrays += size_of_steps;
     }
 
-    myfile.close();
+    my_file.close();
 
-    /*
-    int ordered_array[10] = {1,2,3,4,5,6,7,8,9,10}; // 5 for BruteForceMedian, 6 for Median
-    int unordered_array[10] = {7,3,10,4,1,8,2,5,9,6}; // 5 for BruteForceMedian, 6 for Median
-
-    clock_t ticks = clock();
-    int brute_ordered = BruteForceMedian_BasicOperations(ordered_array, 10);
-    ticks = clock() - ticks;
-    cout << brute_ordered << endl;
-    cout << numoperations << endl;
-    cout << ticks << endl << endl;
-
-    ticks = clock();
-    int brute_unordered = BruteForceMedian_BasicOperations(unordered_array, 10);
-    ticks = clock() - ticks;
-    cout << brute_unordered << endl;
-    cout << numoperations << endl;
-    cout << ticks << endl << endl;
-
-    ticks = clock();
-    int median_ordered = Median_BasicOperations(ordered_array, 10);
-    ticks = clock() - ticks;
-    cout << median_ordered << endl;
-    cout << numoperations << endl;
-    cout << ticks << endl << endl;
-
-    ticks = clock();
-    int median_unordered = Median_BasicOperations(unordered_array, 10);
-    ticks = clock() - ticks;
-    cout << median_unordered << endl;
-    cout << numoperations << endl;
-    cout << ticks << endl << endl;
-    */
+//    int ordered_array[10] = {1,2,3,4,5,6,7,8,9,10}; // 5 for BruteForceMedian, 6 for Median
+//    int unordered_array[10] = {7,3,10,4,1,8,2,5,9,6}; // 5 for BruteForceMedian, 6 for Median
+//
+//    clock_t ticks = clock();
+//    int brute_ordered = BruteForceMedian_BasicOperations(ordered_array, 10);
+//    ticks = clock() - ticks;
+//    cout << brute_ordered << endl;
+//    cout << numoperations << endl;
+//    cout << ticks << endl << endl;
+//
+//    ticks = clock();
+//    int brute_unordered = BruteForceMedian_BasicOperations(unordered_array, 10);
+//    ticks = clock() - ticks;
+//    cout << brute_unordered << endl;
+//    cout << numoperations << endl;
+//    cout << ticks << endl << endl;
+//
+//    ticks = clock();
+//    int median_ordered = Median_BasicOperations(ordered_array, 10);
+//    ticks = clock() - ticks;
+//    cout << median_ordered << endl;
+//    cout << numoperations << endl;
+//    cout << ticks << endl << endl;
+//
+//    ticks = clock();
+//    int median_unordered = Median_BasicOperations(unordered_array, 10);
+//    ticks = clock() - ticks;
+//    cout << median_unordered << endl;
+//    cout << numoperations << endl;
+//    cout << ticks << endl << endl;
 
     return 0;
 }
 
 int BruteForceMedian_BasicOperations(int A[], int n){
-    numoperations = 0;
+    num_operations = 0;
     int k = ceil((float)n/2);
     for(int i = 0; i <= n-1; i++){
         int numsmaller = 0;
         int numequal = 0;
         for(int j = 0; j <= n-1; j++){
-            numoperations++; // Increment Basic Operation Count Here
+            num_operations++; // Increment Basic Operation Count Here
             if(A[j] < A[i]){ // This is the Basic Operation
                 numsmaller = numsmaller+1;
             } else {
@@ -94,7 +100,7 @@ int BruteForceMedian_BasicOperations(int A[], int n){
 }
 
 int Median_BasicOperations(int A[], int n){
-    numoperations = 0;
+    num_operations = 0;
     if(n == 1){
         return A[0];
     } else {
@@ -119,7 +125,7 @@ int Partition_BasicOperations(int A[], int l, int h){
     int pivotval = A[l];
     int pivotloc = l;
     for(int j = l+1; j <= h; j++){
-        numoperations++; // Increment Basic Operation Count Here
+        num_operations++; // Increment Basic Operation Count Here
         if(A[j] < pivotval){ // This is the Basic Operation
             pivotloc = pivotloc+1;
             int temp = A[pivotloc];
