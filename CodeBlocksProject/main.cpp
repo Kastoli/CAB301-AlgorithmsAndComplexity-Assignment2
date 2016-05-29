@@ -14,13 +14,14 @@ int Select_BasicOperations(int A[], int l, int m, int h);
 int Partition_BasicOperations(int A[], int l, int h);
 
 unsigned long num_operations = 0;
+unsigned long num_operations2 = 0;
 
 int main()
 {
     int num_of_arrays = 100;
-    int size_of_arrays = 100;
-    int number_of_steps = 1000;
-    int size_of_steps = 100;
+    int size_of_arrays = 10;
+    int number_of_steps = 100;
+    int size_of_steps = 10;
 
     ofstream my_file;
     my_file.open ("output.csv");
@@ -28,31 +29,34 @@ int main()
     srand(time(NULL));
 
     for(int k = 0; k < number_of_steps; k++){;
-        int average_aray[3][num_of_arrays];
+        long long average_aray[5][num_of_arrays];
         for(int i = 0; i < num_of_arrays; i++){
             int test_array[size_of_arrays];
             for(int j = 0; j < size_of_arrays; j++){
-                test_array[j] = rand()&1000;
+                test_array[j] = rand();
             }
             clock_t ticks = clock();
             int median_value = BruteForceMedian_BasicOperations(test_array, size_of_arrays);
             ticks = clock() - ticks;
-            // my_file << size_of_arrays << "," << num_operations << "," << ticks << "\n";
-            // add to array
+            ticks = ticks * 1000;
+            clock_t ticks2 = clock();
+            int median_value2 = Median_BasicOperations(test_array, size_of_arrays);
+            ticks2 = clock() - ticks2;
+            ticks2 = ticks2 * 1000;
             average_aray[0][i] = size_of_arrays;
             average_aray[1][i] = num_operations;
             average_aray[2][i] = ticks;
+            average_aray[3][i] = num_operations2;
+            average_aray[4][i] = ticks2;
         }
-        // average array
-        // output average to file
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 5; i++){
             long long total = 0;
             for(int j = 0; j < num_of_arrays; j++){
                 total += average_aray[i][j];
             }
             long double average = total / num_of_arrays;
             my_file << average;
-            if(i == 2){
+            if(i == 4){
                 my_file << "\n";
             } else {
                 my_file << ",";
@@ -65,6 +69,7 @@ int main()
 
 //    int ordered_array[10] = {1,2,3,4,5,6,7,8,9,10}; // 5 for BruteForceMedian, 6 for Median
 //    int unordered_array[10] = {7,3,10,4,1,8,2,5,9,6}; // 5 for BruteForceMedian, 6 for Median
+//    int numoperations = 0;
 //
 //    clock_t ticks = clock();
 //    int brute_ordered = BruteForceMedian_BasicOperations(ordered_array, 10);
@@ -120,7 +125,7 @@ int BruteForceMedian_BasicOperations(int A[], int n){
 }
 
 int Median_BasicOperations(int A[], int n){
-    num_operations = 0;
+    num_operations2 = 0;
     if(n == 1){
         return A[0];
     } else {
@@ -145,7 +150,7 @@ int Partition_BasicOperations(int A[], int l, int h){
     int pivotval = A[l];
     int pivotloc = l;
     for(int j = l+1; j <= h; j++){
-        num_operations++; // Increment Basic Operation Count Here
+        num_operations2++; // Increment Basic Operation Count Here
         if(A[j] < pivotval){ // This is the Basic Operation
             pivotloc = pivotloc+1;
             int temp = A[pivotloc];
